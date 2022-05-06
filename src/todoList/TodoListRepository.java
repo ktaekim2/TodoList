@@ -3,6 +3,7 @@ package todoList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 public class TodoListRepository {
@@ -69,7 +70,12 @@ public class TodoListRepository {
 		for (int i = 0; i < todoList.size(); i++) {
 			if (todoList.get(i).getCategoryName().equals("완료한 할 일 목록")) {
 				completedTodoList.add(todoList.get(i));
-
+				Collections.sort(completedTodoList, new Comparator() {
+					@Override
+					public int compare(Object o1, Object o2) {
+						return ((TodoListDTO) o1).getTodoDeadline().compareTo(((TodoListDTO) o2).getTodoDeadline());
+					}
+				});
 			}
 		}
 		return completedTodoList;
@@ -184,23 +190,11 @@ public class TodoListRepository {
 	// deleteAllOfCompletedList()
 	public boolean deleteAllOfCompletedList() {
 		boolean result = false;
-		for (int i = 0; i < todoList.size(); i++) {
-			if (todoList.get(i).getCategoryName().equals("완료한 할 일 목록")) {
-				todoList.remove(i);
-				result = true;
-			}
-		}
-		return result;
-	}
-
-	// deleteAllByCategory()
-	public boolean deleteAllByCategory(String categoryName) {
-		boolean result = false;
-		for (int i = 0; i < todoList.size(); i++) {
-			if (todoList.get(i).getCategoryName().equals(categoryName)) {
-				todoList.remove(i);
-				result = true;
-			}
+		for (Iterator<TodoListDTO> it = todoList.iterator(); it.hasNext();) {
+			TodoListDTO str = it.next();
+			if (str.getCategoryName().equals("완료한 할 일 목록"))
+				it.remove();
+			result = true;
 		}
 		return result;
 	}
@@ -208,9 +202,9 @@ public class TodoListRepository {
 	// deleteCategory()
 	public boolean deleteCategory(Long categoryId) {
 		boolean result = false;
-		for (int i = 0; i < todoList.size(); i++) {
-			if (categoryList.get(i).getCategoryId().equals(categoryId)) {
-				todoList.remove(i);
+		for (int i = 0; i < categoryList.size(); i++) {
+			if (categoryList.get(i).getCategoryId() == categoryId) {
+				categoryList.remove(i);
 				result = true;
 			}
 		}

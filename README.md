@@ -75,21 +75,30 @@
 - 초기 메서드 포멧 구성 완료
 
 ## 20220506
+### 기능 추가
 - TodoListDTO와 CategoryDTO의 공통된 data의 변수 이름 'categoryName'으로 통일(todoCategory -> categoryName)
 - default category 2개가 프로그램 실행 시 자동으로 만들어지는 기능 추가(defaultCategorySave())
 - main class에서 선택 후 추가 선택 기능 추가
 - main class에서 추가 선택에서 뒤로가기 기능 추가
 - 키워드로 할 일 검색 기능 추가
 - 카테고리(CategoryDTO) 수정기능 추가
-- 할 일 설명 삭제
 - 카테고리 중복검사 메서드 추가
 - selectNumber에 예외처리 코드 추가
 - 할 일을 추가 시, 카테고리 이름이 아닌 id로 받는 기능, 조회 여부 메세지 추가
 - 카테고리 별 할 일 조회 시, 이름이 아닌 id로 받는 기능, 조회 여부 메세지 추가
 - todoList를 **마감일 빠른순**으로 조회 기능 추가
+- isEmpty()메서드를 활용해서 리스트가 비어있을때 메세지 출력 기능 추가
+
+## 기능 삭제
+- '할 일 설명'필드 삭제
+- '특정 카테고리 할 일 모두 삭제'기능 삭제
+- createdTime 필드 삭제
+
+### error
+- 모두 삭제 기능 오류 발견: arraylist는 앞 index가 삭제되면 뒤에 있던 녀석이 앞으로 당겨지면서 index번호 또한 당겨지므로 for문으로 삭제 불가능.(해결: https://hi-dot.tistory.com/4)
+- 카테고리 이름 변경 시, todoList의 카테고리 이름도 변경해야 함.
 
 ### 기능 추가 예정
 - **수정을 원하지 않으면 enter**
 - ""으로 수정하시겠습니까? 등 마지막 확인 절차
-- 완료한 할 일이 없을때 없다고 표시
 

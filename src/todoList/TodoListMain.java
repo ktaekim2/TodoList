@@ -129,7 +129,7 @@ public class TodoListMain {
 				else if (selectNumber == 4) {
 					boolean run4 = true;
 					while (run4) {
-						System.out.println("1.할 일 삭제|2.완료한 할 일 모두 삭제|3.특정 카테고리 할 일 모두 삭제|4.카테고리 삭제|5.뒤로가기");
+						System.out.println("1.할 일 삭제|2.완료한 할 일 모두 삭제|3.카테고리 삭제|4.뒤로가기");
 						System.out.print("번호입력: ");
 						selectNumber = scan.nextInt();
 
@@ -143,18 +143,13 @@ public class TodoListMain {
 							todoListService.deleteAllOfCompletedList();
 						}
 
-						// deleteAllByCategory()
-						else if (selectNumber == 3) {
-							todoListService.deleteAllByCategory();
-						}
-
 						// deleteCategory()
-						else if (selectNumber == 4) {
+						else if (selectNumber == 3) {
 							todoListService.deleteCategory();
 						}
 
 						// back()
-						else if (selectNumber == 5) {
+						else if (selectNumber == 4) {
 							run4 = false;
 						} else {
 							System.out.println("번호오류");

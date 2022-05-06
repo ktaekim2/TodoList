@@ -1,7 +1,5 @@
 package todoList;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,9 +50,7 @@ public class TodoListService {
 		if (categoryName != null) {
 			System.out.print("마감일(0000년00월00일): ");
 			String todoDeadline = scan.nextLine();
-			LocalDateTime dateTime = LocalDateTime.now();
-			String todoCreatedDate = dateTime.format(DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH:mm:ss"));
-			TodoListDTO newTodo = new TodoListDTO(++todoId, todoContents, categoryName, todoDeadline, todoCreatedDate);
+			TodoListDTO newTodo = new TodoListDTO(++todoId, todoContents, categoryName, todoDeadline);
 			if (todoListRepository.todoSave(newTodo)) {
 				System.out.println("할 일 등록 완료");
 			} else {
@@ -88,17 +84,24 @@ public class TodoListService {
 	// findTodoList()
 	public void findTodoList() {
 		List<TodoListDTO> todoListExceptcompleted = todoListRepository.findTodoList();
-		for (TodoListDTO l : todoListExceptcompleted) {
-			System.out.println(l);
+		if (todoListExceptcompleted.isEmpty()) {
+			System.out.println("목록이 존재하지 않음");
+		} else {
+			for (TodoListDTO l : todoListExceptcompleted) {
+				System.out.println(l);
+			}
 		}
 	}
 
 	// findCompletedTodoList()
 	public void findCompletedTodoList() {
 		List<TodoListDTO> completedTodoList = todoListRepository.findCompletedTodoList();
-		System.out.println(completedTodoList);
-		for (TodoListDTO l : completedTodoList) {
-			System.out.println(l);
+		if (completedTodoList.isEmpty()) {
+			System.out.println("목록이 존재하지 않음");
+		} else {
+			for (TodoListDTO l : completedTodoList) {
+				System.out.println(l);
+			}
 		}
 	}
 
@@ -111,8 +114,12 @@ public class TodoListService {
 		String categoryName = todoListRepository.findNameById(categoryId);
 		if (categoryName != null) {
 			List<TodoListDTO> todoListByCategory = todoListRepository.findTodoListByCategory(categoryName);
-			for (TodoListDTO l : todoListByCategory) {
-				System.out.println(l);
+			if (todoListByCategory.isEmpty()) {
+				System.out.println("목록이 존재하지 않음");
+			} else {
+				for (TodoListDTO l : todoListByCategory) {
+					System.out.println(l);
+				}
 			}
 		} else {
 			System.out.println("정확한 번호를 입력하세요.");
@@ -125,15 +132,19 @@ public class TodoListService {
 		System.out.print("할 일 내용 키워드: ");
 		String keyword = scan.nextLine();
 		List<TodoListDTO> todoListByKeyword = todoListRepository.findTodoListByKeyword(keyword);
-		for (TodoListDTO l : todoListByKeyword) {
-			System.out.println(l);
+		if (todoListByKeyword.isEmpty()) {
+			System.out.println("목록이 존재하지 않음");
+		} else {
+			for (TodoListDTO l : todoListByKeyword) {
+				System.out.println(l);
+			}
 		}
 	}
 
 	// updateTodoContents()
 	public void updateTodoContents() {
 		findTodoList();
-		System.out.print("수정할 id: ");
+		System.out.print("수정할 할 일 번호: ");
 		Long todoId = scan.nextLong();
 		scan.nextLine();
 		System.out.print("수정할 할 일 내용: ");
@@ -237,19 +248,6 @@ public class TodoListService {
 			System.out.println("삭제할 목록이 없음");
 		}
 		findCompletedTodoList();
-	}
-
-	// deleteAllByCategory()
-	public void deleteAllByCategory() {
-		findTodoList();
-		System.out.print("삭제할 할 일 카테고리: ");
-		String categoryName = scan.nextLine();
-		if (todoListRepository.deleteAllByCategory(categoryName)) {
-			System.out.println("삭제 완료");
-		} else {
-			System.out.println("삭제 실패");
-		}
-		findTodoList();
 	}
 
 	// deleteCategory()
