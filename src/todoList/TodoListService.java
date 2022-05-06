@@ -45,9 +45,11 @@ public class TodoListService {
 		System.out.print("할 일: ");
 		String todoContents = scan.nextLine();
 		findAllCategory();
-		System.out.print("카테고리 이름: ");
-		String categoryName = scan.nextLine();
-		if (categoryDuplicationCheck(categoryName)) {
+		System.out.print("카테고리 번호: ");
+		Long categoryId = scan.nextLong();
+		scan.nextLine();
+		String categoryName = todoListRepository.findNameById(categoryId);
+		if (categoryName != null) {
 			System.out.print("마감일(0000년00월00일): ");
 			String todoDeadline = scan.nextLine();
 			LocalDateTime dateTime = LocalDateTime.now();
@@ -59,7 +61,7 @@ public class TodoListService {
 				System.out.println("할 일 등록 실패");
 			}
 		} else {
-			System.out.println("카테고리를 추가한 후 다시 시도하세요.");
+			System.out.println("정확한 번호를 입력하세요.");
 		}
 
 	}
@@ -102,12 +104,19 @@ public class TodoListService {
 	// findTodoListByCategory()
 	public void findTodoListByCategory() {
 		findAllCategory();
-		System.out.print("찾을 카테고리 이름: ");
-		String categoryName = scan.nextLine();
-		List<TodoListDTO> todoListByCategory = todoListRepository.findTodoListByCategory(categoryName);
-		for (TodoListDTO l : todoListByCategory) {
-			System.out.println(l);
+		System.out.print("찾을 카테고리 번호: ");
+		Long categoryId = scan.nextLong();
+		scan.nextLine();
+		String categoryName = todoListRepository.findNameById(categoryId);
+		if (categoryName != null) {
+			List<TodoListDTO> todoListByCategory = todoListRepository.findTodoListByCategory(categoryName);
+			for (TodoListDTO l : todoListByCategory) {
+				System.out.println(l);
+			}
+		} else {
+			System.out.println("정확한 번호를 입력하세요.");
 		}
+
 	}
 
 	// findTodoListByKeyword()

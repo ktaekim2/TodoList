@@ -24,6 +24,16 @@ public class TodoListRepository {
 		return result;
 	}
 
+	// findNameById()
+	public String findNameById(Long categoryId) {
+		for (int i = 0; i < categoryList.size(); i++) {
+			if (categoryList.get(i).getCategoryId() == categoryId) {
+				return categoryList.get(i).getCategoryName();
+			}
+		}
+		return null;
+	}
+
 	// todoSave()
 	public boolean todoSave(TodoListDTO newTodo) {
 		return todoList.add(newTodo);
