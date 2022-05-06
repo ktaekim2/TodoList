@@ -4,18 +4,18 @@ public class TodoListDTO {
 
 	private Long todoId;
 	private String todoContents;
-	private String todoCategory;
+	private String categoryName;
 	private String todoDeadline;
 	private String todoCreatedDate;
 
 	public TodoListDTO() {
 	}
 
-	public TodoListDTO(Long todoId, String todoContents, String todoCategory, String todoDeadline,
+	public TodoListDTO(Long todoId, String todoContents, String categoryName, String todoDeadline,
 			String todoCreatedDate) {
 		this.todoId = todoId;
 		this.todoContents = todoContents;
-		this.todoCategory = todoCategory;
+		this.categoryName = categoryName;
 		this.todoDeadline = todoDeadline;
 		this.todoCreatedDate = todoCreatedDate;
 	}
@@ -36,12 +36,12 @@ public class TodoListDTO {
 		this.todoContents = todoContents;
 	}
 
-	public String getTodoCategory() {
-		return todoCategory;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setTodoCategory(String todoCategory) {
-		this.todoCategory = todoCategory;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public String getTodoDeadline() {
@@ -62,7 +62,7 @@ public class TodoListDTO {
 
 	@Override
 	public String toString() {
-		return "TodoListDTO [todoId=" + todoId + ", todoContents=" + todoContents + ", todoCategory=" + todoCategory
+		return "TodoListDTO [todoId=" + todoId + ", todoContents=" + todoContents + ", categoryName=" + categoryName
 				+ ", todoDeadline=" + todoDeadline + ", todoCreatedDate=" + todoCreatedDate + "]";
 	}
 

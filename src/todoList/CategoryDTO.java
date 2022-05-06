@@ -4,15 +4,13 @@ public class CategoryDTO {
 
 	private Long categoryId;
 	private String categoryName;
-	private String categoryDiscription;
 
 	public CategoryDTO() {
 	}
 
-	public CategoryDTO(Long categoryId, String categoryName, String categoryDiscription) {
+	public CategoryDTO(Long categoryId, String categoryName) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.categoryDiscription = categoryDiscription;
 	}
 
 	public Long getCategoryId() {
@@ -31,18 +29,9 @@ public class CategoryDTO {
 		this.categoryName = categoryName;
 	}
 
-	public String getCategoryDiscription() {
-		return categoryDiscription;
-	}
-
-	public void setCategoryDiscription(String categoryDiscription) {
-		this.categoryDiscription = categoryDiscription;
-	}
-
 	@Override
 	public String toString() {
-		return "CategoryDTO [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryDiscription="
-				+ categoryDiscription + "]";
+		return "CategoryDTO [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
 	}
 
 }
