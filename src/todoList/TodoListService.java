@@ -96,6 +96,7 @@ public class TodoListService {
 	// findCompletedTodoList()
 	public void findCompletedTodoList() {
 		List<TodoListDTO> completedTodoList = todoListRepository.findCompletedTodoList();
+		System.out.println(completedTodoList);
 		for (TodoListDTO l : completedTodoList) {
 			System.out.println(l);
 		}
@@ -161,23 +162,31 @@ public class TodoListService {
 	// updateTodoCategory()
 	public void updateTodoCategory() {
 		findTodoList();
-		System.out.print("이동할 할 일 id: ");
+		System.out.print("이동할 할 일 번호: ");
 		Long todoId = scan.nextLong();
 		scan.nextLine();
-		System.out.print("이동할 카테고리: ");
-		String categoryName = scan.nextLine();
-		if (todoListRepository.updateTodoCategory(todoId, categoryName)) {
-			System.out.println("카테고리 이동 완료");
+		findAllCategory();
+		System.out.print("이동할 카테고리 번호: ");
+		Long categoryId = scan.nextLong();
+		scan.nextLine();
+		String categoryName = todoListRepository.findNameById(categoryId);
+		if (categoryName != null) {
+			if (todoListRepository.updateTodoCategory(todoId, categoryName)) {
+				System.out.println("카테고리 이동 완료");
+			} else {
+				System.out.println("카테고리 이동 실패");
+			}
+			findTodoList();
 		} else {
-			System.out.println("카테고리 이동 실패");
+			System.out.println("정확한 번호를 입력하세요.");
 		}
-		findTodoList();
+
 	}
 
 	// updateDeadline()
 	public void updateDeadline() {
 		findTodoList();
-		System.out.print("수정할 할 일 id: ");
+		System.out.print("수정할 할 일 번호: ");
 		Long todoId = scan.nextLong();
 		scan.nextLine();
 		System.out.print("수정할 마감일(0000년00월00일): ");

@@ -1,6 +1,8 @@
 package todoList;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TodoListRepository {
@@ -50,7 +52,12 @@ public class TodoListRepository {
 		for (int i = 0; i < todoList.size(); i++) {
 			if (!todoList.get(i).getCategoryName().equals("완료한 할 일 목록")) {
 				todoListExceptcompleted.add(todoList.get(i));
-
+				Collections.sort(todoListExceptcompleted, new Comparator() {
+					@Override
+					public int compare(Object o1, Object o2) {
+						return ((TodoListDTO) o1).getTodoDeadline().compareTo(((TodoListDTO) o2).getTodoDeadline());
+					}
+				});
 			}
 		}
 		return todoListExceptcompleted;
@@ -74,6 +81,12 @@ public class TodoListRepository {
 		for (int i = 0; i < todoList.size(); i++) {
 			if (todoList.get(i).getCategoryName().equals(categoryName)) {
 				todoListByCategory.add(todoList.get(i));
+				Collections.sort(todoListByCategory, new Comparator() {
+					@Override
+					public int compare(Object o1, Object o2) {
+						return ((TodoListDTO) o1).getTodoDeadline().compareTo(((TodoListDTO) o2).getTodoDeadline());
+					}
+				});
 			}
 		}
 		return todoListByCategory;
@@ -85,6 +98,12 @@ public class TodoListRepository {
 		for (int i = 0; i < todoList.size(); i++) {
 			if (todoList.get(i).getTodoContents().contains(keyword)) {
 				todoListByKeyword.add(todoList.get(i));
+				Collections.sort(todoListByKeyword, new Comparator() {
+					@Override
+					public int compare(Object o1, Object o2) {
+						return ((TodoListDTO) o1).getTodoDeadline().compareTo(((TodoListDTO) o2).getTodoDeadline());
+					}
+				});
 			}
 		}
 		return todoListByKeyword;
