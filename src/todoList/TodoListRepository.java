@@ -166,10 +166,17 @@ public class TodoListRepository {
 	// updateCategory()
 	public boolean updateCategory(Long categoryId, String categoryName) {
 		boolean result = false;
+		String todoCategoryName = "";
 		for (int i = 0; i < categoryList.size(); i++) {
 			if (categoryList.get(i).getCategoryId() == categoryId) {
+				todoCategoryName = categoryList.get(i).getCategoryName();
 				categoryList.get(i).setCategoryName(categoryName);
 				result = true;
+			}
+		}
+		for (int i = 0; i < todoList.size(); i++) {
+			if (todoList.get(i).getCategoryName().equals(todoCategoryName)) {
+				todoList.get(i).setCategoryName(categoryName);
 			}
 		}
 		return result;
@@ -202,10 +209,17 @@ public class TodoListRepository {
 	// deleteCategory()
 	public boolean deleteCategory(Long categoryId) {
 		boolean result = false;
+		String todoCategoryName = "";
 		for (int i = 0; i < categoryList.size(); i++) {
 			if (categoryList.get(i).getCategoryId() == categoryId) {
+				todoCategoryName = categoryList.get(i).getCategoryName();
 				categoryList.remove(i);
 				result = true;
+			}
+		}
+		for (int i = 0; i < todoList.size(); i++) {
+			if (todoList.get(i).getCategoryName().equals(todoCategoryName)) {
+				todoList.get(i).setCategoryName("내 할 일 목록");
 			}
 		}
 		return result;

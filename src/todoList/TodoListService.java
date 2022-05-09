@@ -160,7 +160,7 @@ public class TodoListService {
 	// todoCompleted()
 	public void todoCompleted() {
 		findTodoList();
-		System.out.print("완료할 할 일 id: ");
+		System.out.print("완료할 할 일 번호: ");
 		Long todoId = scan.nextLong();
 		if (todoListRepository.todoCompleted(todoId)) {
 			System.out.println("수정 완료");
@@ -209,11 +209,11 @@ public class TodoListService {
 		}
 		findTodoList();
 	}
-
+	
 	// updateCategory()
 	public void updateCategory() {
 		findAllCategory();
-		System.out.print("수정할 카테고리 id: ");
+		System.out.print("수정할 카테고리 번호: ");
 		Long categoryId = scan.nextLong();
 		scan.nextLine();
 		System.out.print("수정할 카테고리 이름: ");
@@ -229,7 +229,7 @@ public class TodoListService {
 	// deleteTodoList()
 	public void deleteTodoList() {
 		findTodoList();
-		System.out.print("삭제할 할 일 id: ");
+		System.out.print("삭제할 할 일 번호: ");
 		Long todoId = scan.nextLong();
 		if (todoListRepository.deleteTodoList(todoId)) {
 			System.out.println("삭제 완료");
@@ -253,7 +253,7 @@ public class TodoListService {
 	// deleteCategory()
 	public void deleteCategory() {
 		findAllCategory();
-		System.out.print("삭제할 카테고리 id: ");
+		System.out.print("삭제할 카테고리 번호: ");
 		Long categoryId = scan.nextLong();
 		if (todoListRepository.deleteCategory(categoryId)) {
 			System.out.println("삭제 완료");
