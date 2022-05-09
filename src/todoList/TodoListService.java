@@ -38,6 +38,20 @@ public class TodoListService {
 		}
 	}
 
+	// returnTodoId()
+	public Long returnTodoId(String whatTodo) {
+		findTodoList();
+		System.out.print(whatTodo + " 할 일 번호: ");
+		return todoId = scan.nextLong();
+	}
+
+	// returnCategoryId()
+	public Long returnCategoryId(String whatTodo) {
+		findAllCategory();
+		System.out.print(whatTodo + " 카테고리 번호: ");
+		return categoryId = scan.nextLong();
+	}
+
 	// todoSave()
 	public void todoSave() {
 		System.out.print("할 일: ");
@@ -107,9 +121,7 @@ public class TodoListService {
 
 	// findTodoListByCategory()
 	public void findTodoListByCategory() {
-		findAllCategory();
-		System.out.print("찾을 카테고리 번호: ");
-		Long categoryId = scan.nextLong();
+		Long categoryId = returnCategoryId("찾을");
 		scan.nextLine();
 		String categoryName = todoListRepository.findNameById(categoryId);
 		if (categoryName != null) {
@@ -143,9 +155,7 @@ public class TodoListService {
 
 	// updateTodoContents()
 	public void updateTodoContents() {
-		findTodoList();
-		System.out.print("수정할 할 일 번호: ");
-		Long todoId = scan.nextLong();
+		Long todoId = returnTodoId("수정할");
 		scan.nextLine();
 		System.out.print("수정할 할 일 내용: ");
 		String todoContents = scan.nextLine();
@@ -159,9 +169,8 @@ public class TodoListService {
 
 	// todoCompleted()
 	public void todoCompleted() {
-		findTodoList();
-		System.out.print("완료할 할 일 번호: ");
-		Long todoId = scan.nextLong();
+		Long todoId = returnTodoId("완료할");
+		scan.nextLine();
 		if (todoListRepository.todoCompleted(todoId)) {
 			System.out.println("수정 완료");
 		} else {
@@ -172,13 +181,8 @@ public class TodoListService {
 
 	// updateTodoCategory()
 	public void updateTodoCategory() {
-		findTodoList();
-		System.out.print("이동할 할 일 번호: ");
-		Long todoId = scan.nextLong();
-		scan.nextLine();
-		findAllCategory();
-		System.out.print("이동할 카테고리 번호: ");
-		Long categoryId = scan.nextLong();
+		Long todoId = returnTodoId("이동할");
+		Long categoryId = returnCategoryId("이동할");
 		scan.nextLine();
 		String categoryName = todoListRepository.findNameById(categoryId);
 		if (categoryName != null) {
@@ -196,9 +200,7 @@ public class TodoListService {
 
 	// updateDeadline()
 	public void updateDeadline() {
-		findTodoList();
-		System.out.print("수정할 할 일 번호: ");
-		Long todoId = scan.nextLong();
+		Long todoId = returnTodoId("수정할");
 		scan.nextLine();
 		System.out.print("수정할 마감일(0000년00월00일): ");
 		String todoDeadline = scan.nextLine();
@@ -209,12 +211,10 @@ public class TodoListService {
 		}
 		findTodoList();
 	}
-	
+
 	// updateCategory()
 	public void updateCategory() {
-		findAllCategory();
-		System.out.print("수정할 카테고리 번호: ");
-		Long categoryId = scan.nextLong();
+		Long categoryId = returnCategoryId("수정할");
 		scan.nextLine();
 		System.out.print("수정할 카테고리 이름: ");
 		String categoryName = scan.nextLine();
@@ -228,9 +228,8 @@ public class TodoListService {
 
 	// deleteTodoList()
 	public void deleteTodoList() {
-		findTodoList();
-		System.out.print("삭제할 할 일 번호: ");
-		Long todoId = scan.nextLong();
+		Long todoId = returnTodoId("삭제할");
+		scan.nextLine();
 		if (todoListRepository.deleteTodoList(todoId)) {
 			System.out.println("삭제 완료");
 		} else {
@@ -252,9 +251,8 @@ public class TodoListService {
 
 	// deleteCategory()
 	public void deleteCategory() {
-		findAllCategory();
-		System.out.print("삭제할 카테고리 번호: ");
-		Long categoryId = scan.nextLong();
+		Long categoryId = returnCategoryId("삭제할");
+		scan.nextLine();
 		if (todoListRepository.deleteCategory(categoryId)) {
 			System.out.println("삭제 완료");
 		} else {
